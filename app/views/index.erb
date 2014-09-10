@@ -14,3 +14,7 @@
      <input type="submit" value="add meetup">
   </form>
   <% end %>
+
+<% if @error %>
+<p><%= @error %></p>
+<% end %>

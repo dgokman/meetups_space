@@ -36,11 +36,17 @@ get '/' do
 end
 
 post '/' do
- new_meetup = Meetup.create(name: params[:name],
+  @meetup_all = []
+  if /./ !~ params[:name] || /./ !~ params[:description] || /./ !~ params[:location]
+    @error = 'Entries cannot be blank'
+    erb :index
+  else
+    new_meetup = Meetup.create(name: params[:name],
     description: params[:description], location: params[:location])
- id = params[:id]
- new_meetup.save
- redirect "/meetups/#{id}"
+    new_meetup.save
+    #binding.pry
+    redirect "/meetups/#{new_meetup.id}/created"
+  end
 end
 
 get '/auth/github/callback' do
@@ -67,5 +73,10 @@ end
 get '/meetups/:id' do
   @meetup = Meetup.find(params[:id])
   erb :show
+end
+
+get '/meetups/:id/created' do
+  @meetup = Meetup.find(params[:id])
+  erb :created
 end
 

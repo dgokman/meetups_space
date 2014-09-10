@@ -1,8 +1,9 @@
 
 body {
   background-image: url('/images/stardust.png');
-  color: red;
+  color: blue;
 }
+
 
 a,
 a:visited {
