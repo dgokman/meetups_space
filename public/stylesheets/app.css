@@ -1,9 +1,16 @@
 
 body {
   background-image: url('/images/stardust.png');
-  color: blue;
+  color: white;
 }
 
+form {
+  color: black;
+}
+
+form h4 {
+  color: white;
+}
 
 a,
 a:visited {
