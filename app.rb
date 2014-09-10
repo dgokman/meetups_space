@@ -31,7 +31,7 @@ def authenticate!
 end
 
 get '/' do
-  @meetup_all = Meetup.all
+  @meetup_all = Meetup.order(:name)
   erb :index
 end
 
