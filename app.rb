@@ -93,3 +93,12 @@ post '/meetups/:meetup_id/memberships' do
   end
 end
 
+post '/meetups/:meetup_id/leave' do
+
+  meetup = Meetup.find(params[:meetup_id])
+  @membership = Membership.delete_all(user_id: current_user.id, meetup_id: meetup.id)
+    flash[:notice] = "You've left this meetup!"
+    redirect "/meetups/#{meetup.id}"
+
+end
+

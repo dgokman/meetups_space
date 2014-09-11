@@ -8,6 +8,12 @@
   </form>
 <% end %>
 
+<% if signed_in? && current_user.meetups.include?(@meetup) %>
+  <form action="/meetups/<%= @meetup.id %>/leave" method="post">
+  <input type="submit" value="leave this meetup"/>
+  </form>
+<% end %>
+
 <% @user.each do |user| %>
   <% @membership.each do |member| %>
     <% if (member.user_id == user.id) && (member.meetup_id == params[:id].to_i) %>
