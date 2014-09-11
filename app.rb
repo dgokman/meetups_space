@@ -41,11 +41,13 @@ post '/' do
     @error = 'Entries cannot be blank'
     erb :index
   else
+
     new_meetup = Meetup.create(name: params[:name],
     description: params[:description], location: params[:location])
     new_meetup.save
+    flash[:notice] = "You've created a new group!"
     #binding.pry
-    redirect "/meetups/#{new_meetup.id}/created"
+    redirect "/meetups/#{new_meetup.id}"
   end
 end
 
@@ -75,8 +77,15 @@ get '/meetups/:id' do
   erb :show
 end
 
-get '/meetups/:id/created' do
-  @meetup = Meetup.find(params[:id])
-  erb :created
+post '/meetups/:meetup_id/memberships' do
+  meetup = Meetup.find(params[:meetup_id])
+  @membership = Membership.new(user_id: current_user.id, meetup_id: meetup.id)
+  if @membership.save
+    flash[:notice] = "You've joined the meetup!"
+    redirect "/meetups/#{meetup.id}"
+  else
+    flash[:notice] = "error: already signed up"
+    redirect "/meetups/#{meetup.id}"
+  end
 end
 
