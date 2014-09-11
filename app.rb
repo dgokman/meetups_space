@@ -73,11 +73,15 @@ get '/example_protected_page' do
 end
 
 get '/meetups/:id' do
+  @user = User.all
+  @membership = Membership.all
   @meetup = Meetup.find(params[:id])
+  #binding.pry
   erb :show
 end
 
 post '/meetups/:meetup_id/memberships' do
+
   meetup = Meetup.find(params[:meetup_id])
   @membership = Membership.new(user_id: current_user.id, meetup_id: meetup.id)
   if @membership.save

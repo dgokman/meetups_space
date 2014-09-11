@@ -7,3 +7,12 @@
   <input type="submit" value="join this meetup"/>
   </form>
 <% end %>
+
+<% @user.each do |user| %>
+  <% @membership.each do |member| %>
+    <% if (member.user_id == user.id) && (member.meetup_id == params[:id].to_i) %>
+      <h4><%= user.username %></h4>
+      <img src="<%= user.avatar_url %>" height=50 width=50/>
+    <% end %>
+  <% end %>
+<% end %>
