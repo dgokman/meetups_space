@@ -2,7 +2,7 @@
 <h4><%= @meetup.description %></h4>
 <h4>Location: <%= @meetup.location %></h4>
 
-<% if signed_in? %>
+<% if signed_in? && !current_user.meetups.include?(@meetup) %>
   <form action="/meetups/<%= @meetup.id %>/memberships" method="post">
   <input type="submit" value="join this meetup"/>
   </form>
